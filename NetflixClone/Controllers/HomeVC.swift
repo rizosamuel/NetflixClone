@@ -10,7 +10,7 @@ import UIKit
 final class HomeVC: UIViewController {
 	
 	private let sectionTitles: [String] = [
-		"Trending Movies", "Popular", "Trending TV Shows", "Upcoming Movies", "Top Rated"
+		"Trending Movies", "Trending TV Shows", "Popular", "Upcoming Movies", "Top Rated"
 	]
 	
 	private let homeFeedTable: UITableView = {
@@ -19,10 +19,10 @@ final class HomeVC: UIViewController {
 		table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: "CollectionViewTableViewCell")
 		return table
 	}()
-
-    override func viewDidLoad() {
+	
+	override func viewDidLoad() {
 		
-        super.viewDidLoad()
+		super.viewDidLoad()
 		
 		view.backgroundColor = .systemBackground
 		view.addSubview(homeFeedTable)
@@ -34,7 +34,11 @@ final class HomeVC: UIViewController {
 		homeFeedTable.tableHeaderView = headerView
 		
 		configureNavigationBar()
-		getTrendingMovies()
+		// getTrendingMovies()
+		// getTrendingTVShows()
+		// getUpcomingMovies()
+		// getPopularMovies()
+		getTopRatedMovies()
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -64,6 +68,66 @@ final class HomeVC: UIViewController {
 					
 				case .success(let movies):
 					print(movies)
+					
+				case .failure(let error):
+					print(error.localizedDescription)
+			}
+		}
+	}
+	
+	private func getTrendingTVShows() {
+		
+		APICaller.shared.getTrendingTVs { result in
+			
+			switch result {
+					
+				case .success(let tvs):
+					print(tvs)
+					
+				case .failure(let error):
+					print(error.localizedDescription)
+			}
+		}
+	}
+	
+	private func getUpcomingMovies() {
+		
+		APICaller.shared.getUpcomingMovies { result in
+			
+			switch result {
+					
+				case .success(let tvs):
+					print(tvs)
+					
+				case .failure(let error):
+					print(error.localizedDescription)
+			}
+		}
+	}
+	
+	private func getPopularMovies() {
+		
+		APICaller.shared.getPopularMovies { result in
+			
+			switch result {
+					
+				case .success(let tvs):
+					print(tvs)
+					
+				case .failure(let error):
+					print(error.localizedDescription)
+			}
+		}
+	}
+	
+	private func getTopRatedMovies() {
+		
+		APICaller.shared.getTopRatedMovies { result in
+			
+			switch result {
+					
+				case .success(let tvs):
+					print(tvs)
 					
 				case .failure(let error):
 					print(error.localizedDescription)
@@ -108,6 +172,7 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate {
 		header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
 		header.textLabel?.frame = CGRect(x: header.bounds.origin.x, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
 		header.textLabel?.textColor = .label
+		// header.textLabel?.text = header.textLabel?.text?.capitalized
 	}
 	
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
