@@ -62,6 +62,9 @@
 		73D85278277EE0B700130801 /* NetflixClone */ = {
 			isa = PBXGroup;
 			children = (
+				73D85298277EEAB200130801 /* Models */,
+				73D85297277EEAAA00130801 /* ViewModels */,
+				73D85296277EEAA500130801 /* Views */,
 				73D8528D277EE23A00130801 /* Controllers */,
 				73D85279277EE0B700130801 /* AppDelegate.swift */,
 				73D8527B277EE0B700130801 /* SceneDelegate.swift */,
@@ -82,6 +85,27 @@
 				73D85294277EE2D100130801 /* DownloadVC.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		73D85296277EEAA500130801 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		73D85297277EEAAA00130801 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		73D85298277EEAB200130801 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
