@@ -12,6 +12,7 @@ final class HomeVM {
 	private(set) var popularMovies: [Title] = []
 	private(set) var upcomingMovies: [Title] = []
 	private(set) var topRatedMovies: [Title] = []
+	private(set) var discoverMovies: [Title] = []
 	
 	enum Section: Int, CaseIterable {
 		
@@ -115,6 +116,25 @@ final class HomeVM {
 					
 				case .success(let movies):
 					this.topRatedMovies = movies
+					completion()
+					
+				case .failure(let error):
+					print(error.localizedDescription)
+					completion()
+			}
+		}
+	}
+	
+	func getDiscoverMovies(completion: @escaping () -> Void) {
+		
+		APICaller.shared.getDiscoverMovies { [weak self] result in
+			
+			guard let this = self else { return }
+			
+			switch result {
+					
+				case .success(let movies):
+					this.discoverMovies = movies
 					completion()
 					
 				case .failure(let error):

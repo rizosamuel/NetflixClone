@@ -12,6 +12,10 @@ final class DownloadVC: UIViewController {
     override func viewDidLoad() {
 		
         super.viewDidLoad()
+		
+		title = "Downloads"
 		view.backgroundColor = .systemBackground
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationItem.largeTitleDisplayMode = .always
     }
 }
