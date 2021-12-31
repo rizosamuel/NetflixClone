@@ -17,6 +17,10 @@
 		73D85293277EE2B000130801 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D85292277EE2B000130801 /* SearchVC.swift */; };
 		73D85295277EE2D100130801 /* DownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D85294277EE2D100130801 /* DownloadVC.swift */; };
 		73D8529C277EEB1900130801 /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8529B277EEB1900130801 /* CollectionViewTableViewCell.swift */; };
+		73D8529E277EEED000130801 /* HeroHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8529D277EEED000130801 /* HeroHeaderView.swift */; };
+		73D852A0277F184900130801 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8529F277F184900130801 /* APICaller.swift */; };
+		73D852A2277F1B0400130801 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D852A1277F1B0400130801 /* Movie.swift */; };
+		73D852A4277F1DBF00130801 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D852A3277F1DBF00130801 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		73D85292277EE2B000130801 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		73D85294277EE2D100130801 /* DownloadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadVC.swift; sourceTree = "<group>"; };
 		73D8529B277EEB1900130801 /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
+		73D8529D277EEED000130801 /* HeroHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHeaderView.swift; sourceTree = "<group>"; };
+		73D8529F277F184900130801 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		73D852A1277F1B0400130801 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		73D852A3277F1DBF00130801 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				73D8529B277EEB1900130801 /* CollectionViewTableViewCell.swift */,
+				73D8529D277EEED000130801 /* HeroHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -109,6 +118,7 @@
 		73D85298277EEAB200130801 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				73D852A1277F1B0400130801 /* Movie.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -116,6 +126,7 @@
 		73D85299277EEAE200130801 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				73D8529F277F184900130801 /* APICaller.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -123,6 +134,7 @@
 		73D8529A277EEAE700130801 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				73D852A3277F1DBF00130801 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -200,10 +212,14 @@
 				73D85293277EE2B000130801 /* SearchVC.swift in Sources */,
 				73D85295277EE2D100130801 /* DownloadVC.swift in Sources */,
 				73D8529C277EEB1900130801 /* CollectionViewTableViewCell.swift in Sources */,
+				73D852A0277F184900130801 /* APICaller.swift in Sources */,
 				73D8527E277EE0B700130801 /* MainTabVC.swift in Sources */,
+				73D8529E277EEED000130801 /* HeroHeaderView.swift in Sources */,
 				73D8528F277EE25700130801 /* HomeVC.swift in Sources */,
+				73D852A4277F1DBF00130801 /* Extensions.swift in Sources */,
 				73D8527A277EE0B700130801 /* AppDelegate.swift in Sources */,
 				73D85291277EE29200130801 /* UpcomingVC.swift in Sources */,
+				73D852A2277F1B0400130801 /* Movie.swift in Sources */,
 				73D8527C277EE0B700130801 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

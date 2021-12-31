@@ -1,0 +1,50 @@
+//
+//  APICaller.swift
+//  NetflixClone
+//
+//  Created by Rijo Samuel on 31/12/21.
+//
+
+import Foundation
+
+struct Constants {
+	
+	static let baseURL = "https://api.themoviedb.org"
+	static let APIKey = "82ba938fe4f005f29458299dcb594fe2"
+}
+
+enum APIError: Error {
+	
+	case failedToGetData
+}
+
+final class APICaller {
+	
+	static let shared = APICaller()
+	
+	private init() { }
+	
+	func getTrendingMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
+		
+		let urlString = Constants.baseURL + "/3/trending/all/day?api_key=" + Constants.APIKey
+		guard let url = URL(string: urlString) else { return }
+		
+		let urlRequest = URLRequest(url: url)
+		let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+			
+			guard let data = data, error == nil else { return }
+			
+			do {
+				let decoder = JSONDecoder()
+				decoder.keyDecodingStrategy = .convertFromSnakeCase
+				let results = try decoder.decode(TrendingMoviesResponse.self, from: data)
+				completion(.success(results.results))
+			} catch {
+				print(error.localizedDescription)
+				completion(.failure(error))
+			}
+		}
+		
+		task.resume()
+	}
+}
