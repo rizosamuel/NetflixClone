@@ -11,6 +11,7 @@ struct Constants {
 	
 	static let baseURL = "https://api.themoviedb.org"
 	static let APIKey = "82ba938fe4f005f29458299dcb594fe2"
+	static let imageBaseUrl = "https://image.tmdb.org/t/p/w500/"
 }
 
 enum APIError: Error {
@@ -24,7 +25,7 @@ final class APICaller {
 	
 	private init() { }
 	
-	func getTrendingMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
+	func getTrendingMovies(completion: @escaping (Result<[Title], Error>) -> Void) {
 		
 		let urlString = Constants.baseURL + "/3/trending/all/day?api_key=" + Constants.APIKey
 		
@@ -38,7 +39,7 @@ final class APICaller {
 			do {
 				let decoder = JSONDecoder()
 				decoder.keyDecodingStrategy = .convertFromSnakeCase
-				let results = try decoder.decode(TrendingMoviesResponse.self, from: data)
+				let results = try decoder.decode(TrendingTitleResponse.self, from: data)
 				completion(.success(results.results))
 			} catch {
 				print(error.localizedDescription)
@@ -49,7 +50,7 @@ final class APICaller {
 		task.resume()
 	}
 	
-	func getTrendingTVs(completion: @escaping (Result<[TV], Error>) -> Void) {
+	func getTrendingTVs(completion: @escaping (Result<[Title], Error>) -> Void) {
 		
 		let urlString = Constants.baseURL + "/3/trending/tv/day?api_key=" + Constants.APIKey
 		
@@ -63,7 +64,7 @@ final class APICaller {
 			do {
 				let decoder = JSONDecoder()
 				decoder.keyDecodingStrategy = .convertFromSnakeCase
-				let results = try decoder.decode(TrendingTVResponse.self, from: data)
+				let results = try decoder.decode(TrendingTitleResponse.self, from: data)
 				completion(.success(results.results))
 			} catch {
 				print(error.localizedDescription)
@@ -74,7 +75,7 @@ final class APICaller {
 		task.resume()
 	}
 	
-	func getUpcomingMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
+	func getUpcomingMovies(completion: @escaping (Result<[Title], Error>) -> Void) {
 		
 		let urlString = Constants.baseURL + "/3/movie/upcoming?api_key=" + Constants.APIKey + "&language=en-US&page=1"
 		
@@ -88,7 +89,7 @@ final class APICaller {
 			do {
 				let decoder = JSONDecoder()
 				decoder.keyDecodingStrategy = .convertFromSnakeCase
-				let results = try decoder.decode(TrendingMoviesResponse.self, from: data)
+				let results = try decoder.decode(TrendingTitleResponse.self, from: data)
 				completion(.success(results.results))
 			} catch {
 				print(error.localizedDescription)
@@ -99,7 +100,7 @@ final class APICaller {
 		task.resume()
 	}
 	
-	func getPopularMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
+	func getPopularMovies(completion: @escaping (Result<[Title], Error>) -> Void) {
 		
 		let urlString = Constants.baseURL + "/3/movie/popular?api_key=" + Constants.APIKey + "&language=en-US&page=1"
 		
@@ -113,7 +114,7 @@ final class APICaller {
 			do {
 				let decoder = JSONDecoder()
 				decoder.keyDecodingStrategy = .convertFromSnakeCase
-				let results = try decoder.decode(TrendingMoviesResponse.self, from: data)
+				let results = try decoder.decode(TrendingTitleResponse.self, from: data)
 				completion(.success(results.results))
 			} catch {
 				print(error.localizedDescription)
@@ -124,7 +125,7 @@ final class APICaller {
 		task.resume()
 	}
 	
-	func getTopRatedMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
+	func getTopRatedMovies(completion: @escaping (Result<[Title], Error>) -> Void) {
 		
 		let urlString = Constants.baseURL + "/3/movie/top_rated?api_key=" + Constants.APIKey + "&language=en-US&page=1"
 		
@@ -138,7 +139,7 @@ final class APICaller {
 			do {
 				let decoder = JSONDecoder()
 				decoder.keyDecodingStrategy = .convertFromSnakeCase
-				let results = try decoder.decode(TrendingMoviesResponse.self, from: data)
+				let results = try decoder.decode(TrendingTitleResponse.self, from: data)
 				completion(.success(results.results))
 			} catch {
 				print(error.localizedDescription)

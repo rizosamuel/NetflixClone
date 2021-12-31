@@ -9,14 +9,12 @@ import UIKit
 
 final class HomeVC: UIViewController {
 	
-	private let sectionTitles: [String] = [
-		"Trending Movies", "Trending TV Shows", "Popular", "Upcoming Movies", "Top Rated"
-	]
+	private let homeVM = HomeVM()
 	
 	private let homeFeedTable: UITableView = {
 		
 		let table = UITableView(frame: .zero, style: .grouped)
-		table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: "CollectionViewTableViewCell")
+		table.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: CollectionViewTableViewCell.identifier)
 		return table
 	}()
 	
@@ -34,11 +32,6 @@ final class HomeVC: UIViewController {
 		homeFeedTable.tableHeaderView = headerView
 		
 		configureNavigationBar()
-		// getTrendingMovies()
-		// getTrendingTVShows()
-		// getUpcomingMovies()
-		// getPopularMovies()
-		getTopRatedMovies()
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -59,88 +52,13 @@ final class HomeVC: UIViewController {
 		
 		navigationController?.navigationBar.tintColor = .label
 	}
-	
-	private func getTrendingMovies() {
-		
-		APICaller.shared.getTrendingMovies { result in
-			
-			switch result {
-					
-				case .success(let movies):
-					print(movies)
-					
-				case .failure(let error):
-					print(error.localizedDescription)
-			}
-		}
-	}
-	
-	private func getTrendingTVShows() {
-		
-		APICaller.shared.getTrendingTVs { result in
-			
-			switch result {
-					
-				case .success(let tvs):
-					print(tvs)
-					
-				case .failure(let error):
-					print(error.localizedDescription)
-			}
-		}
-	}
-	
-	private func getUpcomingMovies() {
-		
-		APICaller.shared.getUpcomingMovies { result in
-			
-			switch result {
-					
-				case .success(let tvs):
-					print(tvs)
-					
-				case .failure(let error):
-					print(error.localizedDescription)
-			}
-		}
-	}
-	
-	private func getPopularMovies() {
-		
-		APICaller.shared.getPopularMovies { result in
-			
-			switch result {
-					
-				case .success(let tvs):
-					print(tvs)
-					
-				case .failure(let error):
-					print(error.localizedDescription)
-			}
-		}
-	}
-	
-	private func getTopRatedMovies() {
-		
-		APICaller.shared.getTopRatedMovies { result in
-			
-			switch result {
-					
-				case .success(let tvs):
-					print(tvs)
-					
-				case .failure(let error):
-					print(error.localizedDescription)
-			}
-		}
-	}
 }
 
 // MARK: - Table View Delegate Methods
 extension HomeVC: UITableViewDataSource, UITableViewDelegate {
 	
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return sectionTitles.count
+		return HomeVM.Section.allCases.count
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -149,7 +67,23 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
-		let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionViewTableViewCell", for: indexPath) as! CollectionViewTableViewCell
+		let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as! CollectionViewTableViewCell
+		
+		switch indexPath.section {
+				
+			case HomeVM.Section.trendingMovies.rawValue:
+				homeVM.getTrendingMovies { cell.configure(with: self.homeVM.trendingMovies) }
+			case HomeVM.Section.trendingTVs.rawValue:
+				homeVM.getTrendingTVShows { cell.configure(with: self.homeVM.trendingTVs) }
+			case HomeVM.Section.popular.rawValue:
+				homeVM.getPopularMovies { cell.configure(with: self.homeVM.popularMovies) }
+			case HomeVM.Section.upcoming.rawValue:
+				homeVM.getUpcomingMovies { cell.configure(with: self.homeVM.upcomingMovies) }
+			case HomeVM.Section.topRated.rawValue:
+				homeVM.getTopRatedMovies { cell.configure(with: self.homeVM.topRatedMovies) }
+			default: break
+		}
+		
 		return cell
 	}
 	
@@ -162,7 +96,7 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return sectionTitles[section]
+		return HomeVM.Section.allCases[section].title
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
