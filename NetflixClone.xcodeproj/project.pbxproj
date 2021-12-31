@@ -16,6 +16,7 @@
 		73D85291277EE29200130801 /* UpcomingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D85290277EE29200130801 /* UpcomingVC.swift */; };
 		73D85293277EE2B000130801 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D85292277EE2B000130801 /* SearchVC.swift */; };
 		73D85295277EE2D100130801 /* DownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D85294277EE2D100130801 /* DownloadVC.swift */; };
+		73D8529C277EEB1900130801 /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D8529B277EEB1900130801 /* CollectionViewTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		73D85290277EE29200130801 /* UpcomingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingVC.swift; sourceTree = "<group>"; };
 		73D85292277EE2B000130801 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		73D85294277EE2D100130801 /* DownloadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadVC.swift; sourceTree = "<group>"; };
+		73D8529B277EEB1900130801 /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,8 @@
 		73D85278277EE0B700130801 /* NetflixClone */ = {
 			isa = PBXGroup;
 			children = (
+				73D8529A277EEAE700130801 /* Resources */,
+				73D85299277EEAE200130801 /* Managers */,
 				73D85298277EEAB200130801 /* Models */,
 				73D85297277EEAAA00130801 /* ViewModels */,
 				73D85296277EEAA500130801 /* Views */,
@@ -90,6 +94,7 @@
 		73D85296277EEAA500130801 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				73D8529B277EEB1900130801 /* CollectionViewTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -106,6 +111,20 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		73D85299277EEAE200130801 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		73D8529A277EEAE700130801 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +199,7 @@
 			files = (
 				73D85293277EE2B000130801 /* SearchVC.swift in Sources */,
 				73D85295277EE2D100130801 /* DownloadVC.swift in Sources */,
+				73D8529C277EEB1900130801 /* CollectionViewTableViewCell.swift in Sources */,
 				73D8527E277EE0B700130801 /* MainTabVC.swift in Sources */,
 				73D8528F277EE25700130801 /* HomeVC.swift in Sources */,
 				73D8527A277EE0B700130801 /* AppDelegate.swift in Sources */,
