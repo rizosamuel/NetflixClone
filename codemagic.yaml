@@ -8,7 +8,6 @@ workflows:
                XCODE_PROJ: "NetflixClone.xcodeproj" # <-- Put the name of your Xcode workspace here
                XCODE_SCHEME: "NetflixClone" # <-- Put the name of your Xcode scheme here
             xcode: 13.0
-            cocoapods: default
         scripts:
             - name: Build ipa for distribution
               script: |
