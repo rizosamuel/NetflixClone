@@ -9,9 +9,9 @@ import UIKit
 
 final class SearchResultsVC: UIViewController {
 	
-	var titles: [Title] = []
+	private var titles: [Title] = []
 	
-	let searchResultsCollectionView: UICollectionView = {
+	private let searchResultsCollectionView: UICollectionView = {
 		
 		let layout = UICollectionViewFlowLayout()
 		layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 3 - 10, height: 200)
@@ -36,6 +36,11 @@ final class SearchResultsVC: UIViewController {
 		
 		super.viewDidLayoutSubviews()
 		searchResultsCollectionView.frame = view.bounds
+	}
+	
+	func setTitles(with titles: [Title]) {
+		self.titles = titles
+		searchResultsCollectionView.reloadData()
 	}
 }
 

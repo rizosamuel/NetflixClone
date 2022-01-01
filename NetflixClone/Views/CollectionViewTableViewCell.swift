@@ -28,7 +28,7 @@ final class CollectionViewTableViewCell: UITableViewCell {
 		
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		
-		contentView.backgroundColor = .systemPink
+		contentView.backgroundColor = .systemBackground
 		contentView.addSubview(collectionView)
 		
 		collectionView.dataSource = self

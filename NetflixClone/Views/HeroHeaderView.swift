@@ -9,6 +9,8 @@ import UIKit
 
 final class HeroHeaderView: UIView {
 	
+	private var gradientLayer: CAGradientLayer?
+	
 	private let heroImageView: UIImageView = {
 		
 		let imageView = UIImageView()
@@ -22,7 +24,8 @@ final class HeroHeaderView: UIView {
 		
 		let button = UIButton()
 		button.setTitle("Play", for: .normal)
-		button.layer.borderColor = UIColor.white.cgColor
+		button.setTitleColor(.label, for: .normal)
+		button.layer.borderColor = UIColor.label.cgColor
 		button.layer.borderWidth = 1
 		button.layer.cornerRadius = 5
 		button.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +36,8 @@ final class HeroHeaderView: UIView {
 		
 		let button = UIButton()
 		button.setTitle("Download", for: .normal)
-		button.layer.borderColor = UIColor.white.cgColor
+		button.setTitleColor(.label, for: .normal)
+		button.layer.borderColor = UIColor.label.cgColor
 		button.layer.borderWidth = 1
 		button.layer.cornerRadius = 5
 		button.translatesAutoresizingMaskIntoConstraints = false
@@ -62,12 +66,28 @@ final class HeroHeaderView: UIView {
 		heroImageView.frame = bounds
 	}
 	
+	override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+		
+		super.traitCollectionDidChange(previousTraitCollection)
+		
+		gradientLayer?.removeFromSuperlayer()
+		addGradient()
+		
+		playButton.setTitleColor(.label, for: .normal)
+		playButton.layer.borderColor = UIColor.label.cgColor
+		bringSubviewToFront(playButton)
+		
+		downloadButton.setTitleColor(.label, for: .normal)
+		downloadButton.layer.borderColor = UIColor.label.cgColor
+		bringSubviewToFront(downloadButton)
+	}
+	
 	private func addGradient() {
 		
-		let gradientLayer = CAGradientLayer()
-		gradientLayer.colors = [UIColor.clear.cgColor, UIColor.systemBackground.cgColor]
-		gradientLayer.frame = bounds
-		layer.addSublayer(gradientLayer)
+		gradientLayer = CAGradientLayer()
+		gradientLayer!.colors = [UIColor.clear.cgColor, UIColor.systemBackground.cgColor]
+		gradientLayer!.frame = bounds
+		layer.addSublayer(gradientLayer!)
 	}
 	
 	private func applyConstraints() {

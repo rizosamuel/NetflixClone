@@ -25,10 +25,10 @@ final class SearchVC: UIViewController {
 		controller.searchBar.searchBarStyle = .minimal
 		return controller
 	}()
-
-    override func viewDidLoad() {
+	
+	override func viewDidLoad() {
 		
-        super.viewDidLoad()
+		super.viewDidLoad()
 		
 		title = "Search"
 		view.backgroundColor = .systemBackground
@@ -45,7 +45,7 @@ final class SearchVC: UIViewController {
 		searchController.searchResultsUpdater = self
 		
 		homeVM.getDiscoverMovies { DispatchQueue.main.async { self.discoverTable.reloadData() } }
-    }
+	}
 	
 	override func viewDidLayoutSubviews() {
 		
@@ -78,24 +78,17 @@ extension SearchVC: UISearchResultsUpdating {
 	
 	func updateSearchResults(for searchController: UISearchController) {
 		
-		let searchBar = searchController.searchBar
-		
-		guard let query = searchBar.text,
-				!query.trimmingCharacters(in: .whitespaces).isEmpty,
-			  query.trimmingCharacters(in: .whitespaces).count >= 3,
-			  let resultsController = searchController.searchResultsController as? SearchResultsVC else {
-				  
-				  return
-			  }
+		guard let query = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces),
+			  !query.isEmpty, query.count >= 3,
+			  let resultsController = searchController.searchResultsController as? SearchResultsVC else {  return }
 		
 		APICaller.shared.search(with: query) { result in
 			
 			switch result {
 					
 				case .success(let titles):
-					resultsController.titles = titles
 					DispatchQueue.main.async {
-						resultsController.searchResultsCollectionView.reloadData()
+						resultsController.setTitles(with: titles)
 					}
 					
 				case .failure(let error):
