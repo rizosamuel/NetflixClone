@@ -15,7 +15,6 @@ struct Constants {
 }
 
 enum APIError: Error {
-	
 	case failedToGetData
 }
 
