@@ -17,6 +17,14 @@ final class SearchVC: UIViewController {
 		table.register(TitleTableViewCell.self, forCellReuseIdentifier: TitleTableViewCell.identifier)
 		return table
 	}()
+	
+	private let searchController: UISearchController = {
+		
+		let controller = UISearchController(searchResultsController: SearchResultsVC())
+		controller.searchBar.placeholder = "Search for a Movie or TV Show"
+		controller.searchBar.searchBarStyle = .minimal
+		return controller
+	}()
 
     override func viewDidLoad() {
 		
@@ -26,11 +34,15 @@ final class SearchVC: UIViewController {
 		view.backgroundColor = .systemBackground
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationItem.largeTitleDisplayMode = .always
+		navigationItem.searchController = searchController
+		navigationController?.navigationBar.tintColor = .label
 		
 		view.addSubview(discoverTable)
 		
 		discoverTable.dataSource = self
 		discoverTable.delegate = self
+		
+		searchController.searchResultsUpdater = self
 		
 		homeVM.getDiscoverMovies { DispatchQueue.main.async { self.discoverTable.reloadData() } }
     }
@@ -58,5 +70,37 @@ extension SearchVC: UITableViewDataSource, UITableViewDelegate {
 	
 	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 140
+	}
+}
+
+// MARK: - Search Controller Methods
+extension SearchVC: UISearchResultsUpdating {
+	
+	func updateSearchResults(for searchController: UISearchController) {
+		
+		let searchBar = searchController.searchBar
+		
+		guard let query = searchBar.text,
+				!query.trimmingCharacters(in: .whitespaces).isEmpty,
+			  query.trimmingCharacters(in: .whitespaces).count >= 3,
+			  let resultsController = searchController.searchResultsController as? SearchResultsVC else {
+				  
+				  return
+			  }
+		
+		APICaller.shared.search(with: query) { result in
+			
+			switch result {
+					
+				case .success(let titles):
+					resultsController.titles = titles
+					DispatchQueue.main.async {
+						resultsController.searchResultsCollectionView.reloadData()
+					}
+					
+				case .failure(let error):
+					print(error.localizedDescription)
+			}
+		}
 	}
 }
