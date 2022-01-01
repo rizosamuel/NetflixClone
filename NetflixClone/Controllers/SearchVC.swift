@@ -52,10 +52,7 @@ extension SearchVC: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as! TitleTableViewCell
-		
-		let titleName = homeVM.discoverMovies[indexPath.row].originalTitle ?? ""
-		let posterPath = homeVM.discoverMovies[indexPath.row].posterPath ?? ""
-		cell.configure(with: TitleVM(titleName: titleName, posterUrl: posterPath))
+		cell.configure(with: homeVM.discoverMovies, index: indexPath.row)
 		return cell
 	}
 	

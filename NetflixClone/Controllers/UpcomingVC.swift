@@ -51,10 +51,7 @@ extension UpcomingVC: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let cell = tableView.dequeueReusableCell(withIdentifier: TitleTableViewCell.identifier, for: indexPath) as! TitleTableViewCell
-		
-		let titleName = homeVM.upcomingMovies[indexPath.row].originalTitle ?? "N/A"
-		let posterUrl = homeVM.upcomingMovies[indexPath.row].posterPath ?? ""
-		cell.configure(with: TitleVM(titleName: titleName, posterUrl: posterUrl))
+		cell.configure(with: homeVM.upcomingMovies, index: indexPath.row)
 		return cell
 	}
 	

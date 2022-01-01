@@ -62,8 +62,7 @@ extension CollectionViewTableViewCell: UICollectionViewDataSource, UICollectionV
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifier, for: indexPath) as! TitleCollectionViewCell
-		
-		if let posterPath = titles[indexPath.row].posterPath { cell.configure(with: posterPath) }
+		cell.configure(with: titles, index: indexPath.row)
 		return cell
 	}
 }

@@ -81,11 +81,12 @@ final class TitleTableViewCell: UITableViewCell {
 		NSLayoutConstraint.activate(playButtonConstraints)
 	}
 	
-	func configure(with model: TitleVM) {
+	func configure(with titles: [Title], index: Int) {
 		
-		guard let url = URL(string: Constants.imageBaseUrl + model.posterUrl) else { return }
+		guard let posterPath = titles[index].posterPath,
+			  let url = URL(string: Constants.imageBaseUrl + posterPath) else { return }
 		
 		titlePoster.sd_setImage(with: url, completed: nil)
-		titleLabel.text = model.titleName
+		titleLabel.text = titles[index].originalTitle ?? ""
 	}
 }
