@@ -11,6 +11,9 @@ final class HomeVC: UIViewController {
 	
 	private let homeVM = HomeVM()
 	
+	private var randomTrendingMovie: Title?
+	private var headerView: HeroHeaderView?
+	
 	private let homeFeedTable: UITableView = {
 		
 		let table = UITableView(frame: .zero, style: .grouped)
@@ -28,10 +31,27 @@ final class HomeVC: UIViewController {
 		homeFeedTable.dataSource = self
 		homeFeedTable.delegate = self
 		
-		let headerView = HeroHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
+		headerView = HeroHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
 		homeFeedTable.tableHeaderView = headerView
 		
 		configureNavigationBar()
+		configureHeroHeaderView()
+	}
+	
+	private func configureHeroHeaderView() {
+		
+		APICaller.shared.getTrendingMovies { Result in
+			
+			switch Result {
+					
+				case .success(let titles):
+					self.randomTrendingMovie = titles.randomElement()
+					self.headerView?.configure(with: self.randomTrendingMovie!)
+					
+				case .failure(let error):
+					print(error.localizedDescription)
+			}
+		}
 	}
 	
 	override func viewDidLayoutSubviews() {
@@ -68,6 +88,8 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		
 		let cell = tableView.dequeueReusableCell(withIdentifier: CollectionViewTableViewCell.identifier, for: indexPath) as! CollectionViewTableViewCell
+		
+		cell.delegate = self
 		
 		switch indexPath.section {
 				
@@ -115,5 +137,18 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate {
 		let defaultOffset = view.safeAreaInsets.top
 		let offset = scrollView.contentOffset.y + defaultOffset
 		navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
+	}
+}
+
+extension HomeVC: CollectionViewTableViewCellDelegate {
+	
+	func didTapCell(_ cell: CollectionViewTableViewCell, viewModel: TitlePreviewVM) {
+		
+		DispatchQueue.main.async {
+			
+			let vc = TitlePreviewViewController()
+			vc.configure(with: viewModel)
+			self.navigationController?.pushViewController(vc, animated: true)
+		}
 	}
 }

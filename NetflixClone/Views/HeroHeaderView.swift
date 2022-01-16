@@ -107,4 +107,11 @@ final class HeroHeaderView: UIView {
 		NSLayoutConstraint.activate(playButtonConstraints)
 		NSLayoutConstraint.activate(downloadButtonConstraints)
 	}
+	
+	func configure(with title: Title) {
+		
+		guard let url = URL(string: Constants.imageBaseUrl + title.posterPath!) else { return }
+		
+		heroImageView.sd_setImage(with: url, completed: nil)
+	}
 }

@@ -74,13 +74,14 @@ extension SearchVC: UITableViewDataSource, UITableViewDelegate {
 }
 
 // MARK: - Search Controller Methods
-extension SearchVC: UISearchResultsUpdating {
+extension SearchVC: UISearchResultsUpdating, SearchResultsDelegate {
 	
 	func updateSearchResults(for searchController: UISearchController) {
 		
 		guard let query = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces),
 			  !query.isEmpty, query.count >= 3,
 			  let resultsController = searchController.searchResultsController as? SearchResultsVC else {  return }
+		resultsController.delegate = self
 		
 		APICaller.shared.search(with: query) { result in
 			
@@ -95,5 +96,12 @@ extension SearchVC: UISearchResultsUpdating {
 					print(error.localizedDescription)
 			}
 		}
+	}
+	
+	func searchResultsDidTapItem(_ model: TitlePreviewVM) {
+		
+		let vc = TitlePreviewViewController()
+		vc.configure(with: model)
+		self.navigationController?.pushViewController(vc, animated: true)
 	}
 }

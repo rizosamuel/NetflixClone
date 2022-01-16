@@ -7,9 +7,16 @@
 
 import UIKit
 
+protocol SearchResultsDelegate: AnyObject {
+	
+	func searchResultsDidTapItem(_ model: TitlePreviewVM)
+}
+
 final class SearchResultsVC: UIViewController {
 	
 	private var titles: [Title] = []
+	
+	weak var delegate: SearchResultsDelegate?
 	
 	private let searchResultsCollectionView: UICollectionView = {
 		
@@ -21,16 +28,16 @@ final class SearchResultsVC: UIViewController {
 		collectionView.register(TitleCollectionViewCell.self, forCellWithReuseIdentifier: TitleCollectionViewCell.identifier)
 		return collectionView
 	}()
-
-    override func viewDidLoad() {
+	
+	override func viewDidLoad() {
 		
-        super.viewDidLoad()
+		super.viewDidLoad()
 		view.backgroundColor = .systemBackground
 		view.addSubview(searchResultsCollectionView)
 		
 		searchResultsCollectionView.dataSource = self
 		searchResultsCollectionView.delegate = self
-    }
+	}
 	
 	override func viewDidLayoutSubviews() {
 		
@@ -56,5 +63,29 @@ extension SearchResultsVC: UICollectionViewDataSource, UICollectionViewDelegate 
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TitleCollectionViewCell.identifier, for: indexPath) as! TitleCollectionViewCell
 		cell.configure(with: titles, index: indexPath.row)
 		return cell
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		
+		collectionView.deselectItem(at: indexPath, animated: true)
+		
+		let title = titles[indexPath.row]
+		
+		guard let titleName = title.originalTitle ?? title.originalName else { return }
+		
+		APICaller.shared.getMovie(with: titleName) { result in
+			
+			switch result {
+					
+				case .success(let videoElement):
+					DispatchQueue.main.async {
+						let overview = title.overview ?? ""
+						self.delegate?.searchResultsDidTapItem(TitlePreviewVM(title: titleName, youtubeView: videoElement.first!, titleOverview: overview))
+					}
+					
+				case .failure(let error):
+					print(error.localizedDescription)
+			}
+		}
 	}
 }
